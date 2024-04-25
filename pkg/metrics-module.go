@@ -71,29 +71,31 @@ func (m module) Init() {
 	}
 
 	go inm.Stream(context.TODO(), encoder)
+
+	m.registerMetricListener()
 }
 
-func (m module) GetMetrics(req service.MetricsRequest) ([]service.MetricsResponseItem, error) {
+func (m module) GetMetrics(req MetricsRequest) ([]MetricsResponseItem, error) {
 	var query = `from(bucket:"apibrew")
 					|> range(start: -100m)
 					|> filter(fn: (r) => r._measurement == "` + m.serviceId + `.RecordService" and r._field == "count")
 					`
 	it, err := m.influxQueryApi.Query(context.Background(), query)
 
-	var result []service.MetricsResponseItem
+	var result []MetricsResponseItem
 
 	if err != nil {
 		return nil, errors.InternalError.WithDetails(err.Error())
 	}
 
 	for it.Next() {
-		var item service.MetricsResponseItem
+		var item MetricsResponseItem
 		var rec = it.Record()
 		var values = rec.Values()
 
 		item.Namespace = values["namespace"].(string)
 		item.Resource = values["resource"].(string)
-		item.Operation = service.MetricsOperation(values["operation"].(string))
+		item.Operation = MetricsOperation(values["operation"].(string))
 		item.Count = uint64(values["_value"].(int64))
 
 		item.Time = values["_time"].(time.Time)
@@ -120,6 +122,47 @@ func (m module) ensureNamespace() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func (m module) registerMetricListener() {
+	m.backendEventHandler.RegisterHandler(backend_event_handler.Handler{
+		Id:   "metrics-listener",
+		Name: "metrics-listener",
+		Fn: func(ctx context.Context, event *model.Event) (*model.Event, error) {
+			// begin metrics
+			var count = len(event.Records)
+			if count == 0 {
+				count = 1
+			}
+
+			metrics.IncrCounterWithLabels([]string{"RecordMetrics"}, float32(count), []metrics.Label{
+				{Name: "namespace", Value: event.Resource.Namespace},
+				{Name: "resource", Value: event.Resource.Name},
+				{Name: "action", Value: event.Action.String()},
+			})
+
+			metrics.IncrCounterWithLabels([]string{"RecordMetricsNA"}, float32(count), []metrics.Label{
+				{Name: "namespace", Value: event.Resource.Namespace},
+				{Name: "action", Value: event.Action.String()},
+			})
+
+			metrics.IncrCounterWithLabels([]string{"RecordMetricsN"}, float32(count), []metrics.Label{
+				{Name: "namespace", Value: event.Resource.Namespace},
+			})
+
+			metrics.IncrCounterWithLabels([]string{"RecordMetricsA"}, float32(count), []metrics.Label{
+				{Name: "action", Value: event.Action.String()},
+			})
+
+			metrics.IncrCounterWithLabels([]string{"RecordMetricsT"}, float32(count), []metrics.Label{})
+
+			// end metrics
+			return event, nil
+		},
+		Order:    1,
+		Sync:     true,
+		Internal: true,
+	})
 }
 
 func NewModule(container service.Container) service.Module {
