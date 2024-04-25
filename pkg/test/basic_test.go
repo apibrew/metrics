@@ -3,7 +3,7 @@ package test
 import (
 	"github.com/apibrew/apibrew/pkg/api"
 	"github.com/apibrew/apibrew/pkg/util"
-	"github.com/apibrew/template/pkg/model"
+	"github.com/apibrew/metrics/pkg/model"
 	"github.com/magiconair/properties/assert"
 	"testing"
 )

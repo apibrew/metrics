@@ -51,6 +51,7 @@ github.com/apibrew/apibrew v1.3.81 h1:nEN1HxmZWpAy+Q/Htqx7AwGrDpElO1dH2QXimEhXmr
 github.com/apibrew/apibrew v1.3.81/go.mod h1:QdxYOH5KhRQToWYag98DD8Q1KsumQLUE80vyTuRMtSk=
 github.com/apibrew/apibrew v1.3.82 h1:BuOKX4bEE2SghhX6gjE5qp0uWrVnh+bwr1S8wl8nr2Y=
 github.com/apibrew/apibrew v1.3.82/go.mod h1:QdxYOH5KhRQToWYag98DD8Q1KsumQLUE80vyTuRMtSk=
+github.com/apibrew/apibrew v1.3.83/go.mod h1:QdxYOH5KhRQToWYag98DD8Q1KsumQLUE80vyTuRMtSk=
 github.com/apibrew/nano v1.0.15 h1:6Fn6PWI7jQ/LhQnvEI+SLZHrzStMSdBmsJ3YMbskgnE=
 github.com/apibrew/nano v1.0.15/go.mod h1:2s2rk/QKl3lKl/OFec9ZMXQrOhJYMbdALiFrsqk5Mmw=
 github.com/aws/aws-sdk-go v1.50.19 h1:YSIDKRSkh/TW0RPWoocdLqtC/T5W6IGBVhFs6P7Qcac=

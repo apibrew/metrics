@@ -5,7 +5,7 @@ import (
 	"github.com/apibrew/apibrew/pkg/service"
 	"github.com/apibrew/apibrew/pkg/service/impl"
 	"github.com/apibrew/apibrew/pkg/test/setup"
-	"github.com/apibrew/template/pkg"
+	"github.com/apibrew/metrics/pkg"
 )
 
 var container service.Container
