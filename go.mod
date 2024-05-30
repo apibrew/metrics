@@ -5,7 +5,7 @@ go 1.20
 replace github.com/apibrew/apibrew => ../apibrew
 
 require (
-	github.com/apibrew/apibrew v1.4.25
+	github.com/apibrew/apibrew v1.4.27
 	github.com/hashicorp/go-metrics v0.5.1
 	github.com/influxdata/influxdb-client-go/v2 v2.12.3
 	github.com/sirupsen/logrus v1.9.3

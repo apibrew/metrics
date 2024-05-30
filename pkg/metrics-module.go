@@ -2,18 +2,14 @@ package pkg
 
 import (
 	"context"
-	"github.com/apibrew/apibrew/pkg/abs"
 	"github.com/apibrew/apibrew/pkg/api"
 	"github.com/apibrew/apibrew/pkg/errors"
 	"github.com/apibrew/apibrew/pkg/model"
-	"github.com/apibrew/apibrew/pkg/resources"
 	"github.com/apibrew/apibrew/pkg/service"
 	"github.com/apibrew/apibrew/pkg/service/backend-event-handler"
-	"github.com/apibrew/apibrew/pkg/util"
 	"github.com/hashicorp/go-metrics"
 	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
 	api2 "github.com/influxdata/influxdb-client-go/v2/api"
-	"google.golang.org/protobuf/types/known/structpb"
 	"log"
 	"time"
 )
@@ -49,7 +45,7 @@ func (m module) Init() {
 	writer.EnableBatching()
 
 	encoder := &influxEncoder{writer: writer}
-	m.serviceId = m.serviceId
+	m.serviceId = m.container.GetAppConfig().ServiceId
 
 	m.influxQueryApi = influxClient.QueryAPI(organization)
 
@@ -105,24 +101,6 @@ func (m module) GetMetrics(req MetricsRequest) ([]MetricsResponseItem, error) {
 	}
 
 	return result, nil
-}
-
-func (m module) ensureNamespace() {
-	_, err := m.container.GetRecordService().Apply(util.SystemContext, service.RecordUpdateParams{
-		Namespace: resources.NamespaceResource.Namespace,
-		Resource:  resources.NamespaceResource.Name,
-		Records: []abs.RecordLike{
-			&model.Record{
-				Properties: map[string]*structpb.Value{
-					"name": structpb.NewStringValue("template"),
-				},
-			},
-		},
-	})
-
-	if err != nil {
-		log.Fatal(err)
-	}
 }
 
 func (m module) registerMetricListener() {
