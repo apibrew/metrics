@@ -9,7 +9,7 @@ require (
 	github.com/hashicorp/go-metrics v0.5.1
 	github.com/influxdata/influxdb-client-go/v2 v2.12.3
 	github.com/sirupsen/logrus v1.9.3
-	google.golang.org/protobuf v1.33.0
+	google.golang.org/protobuf v1.34.1
 )
 
 require (
