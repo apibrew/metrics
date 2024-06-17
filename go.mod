@@ -5,8 +5,11 @@ go 1.20
 require (
 	github.com/apibrew/apibrew v1.3.85
 	github.com/google/uuid v1.5.0
+	github.com/hashicorp/go-metrics v0.5.1
+	github.com/influxdata/influxdb-client-go/v2 v2.12.3
+	github.com/magiconair/properties v1.8.7
 	github.com/sirupsen/logrus v1.9.3
-	google.golang.org/protobuf v1.30.0
+	google.golang.org/protobuf v1.34.2
 )
 
 require (
@@ -33,19 +36,16 @@ require (
 	github.com/google/pprof v0.0.0-20230207041349-798e818bf904 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.0 // indirect
 	github.com/hashicorp/go-immutable-radix v1.3.1 // indirect
-	github.com/hashicorp/go-metrics v0.5.1 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/huandu/xstrings v1.4.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
-	github.com/influxdata/influxdb-client-go/v2 v2.12.3 // indirect
 	github.com/influxdata/line-protocol v0.0.0-20200327222509-2487e7298839 // indirect
 	github.com/invopop/yaml v0.1.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/klauspost/compress v1.17.4 // indirect
 	github.com/lib/pq v1.10.7 // indirect
-	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
@@ -70,7 +70,6 @@ require (
 	go.mongodb.org/mongo-driver v1.11.4 // indirect
 	golang.org/x/crypto v0.21.0 // indirect
 	golang.org/x/net v0.21.0 // indirect
-	golang.org/x/oauth2 v0.19.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
 	golang.org/x/sys v0.18.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
